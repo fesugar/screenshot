@@ -1,6 +1,23 @@
-﻿/**
-*Original right:  https://www.cnblogs.com/yang-fei/p/4029782.html
- **/
+﻿#region << 版 本 注 释 >>
+/*----------------------------------------------------------------
+* 项目名称 ：screenshot
+* 项目描述 ：屏幕截图工具
+* 类 名 称 ：MainWindow
+* 类 描 述 ：使用Graphics截取屏幕
+* 命名空间 ：screenshot
+* CLR 版本 ：4.0
+* 作    者 ：fesugar
+* 邮    箱 ：fesugar@fesugar.com
+* 创建时间 ：12:42 2020/3/16
+* 更新时间 ：12:42 2020/3/16
+* 版 本 号 ：v1.0.0.0
+* 参考文献 ：https://www.cnblogs.com/yang-fei/p/4029782.html
+*******************************************************************
+* Copyright @ fesugar 2020. All rights reserved.
+*******************************************************************
+//----------------------------------------------------------------*/
+#endregion
+
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -37,7 +54,11 @@ namespace screenshot
         private double height;
 
         private bool isMouseDown = false;
-
+        /// <summary>
+        /// 鼠标按下事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton != MouseButtonState.Pressed) return;
@@ -45,7 +66,11 @@ namespace screenshot
             x = e.GetPosition(null).X;
             y = e.GetPosition(null).Y;
         }
-
+        /// <summary>
+        /// 移动鼠标事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_MouseMove(object sender, MouseEventArgs e)
         {
 
@@ -68,37 +93,33 @@ namespace screenshot
                     case true:
                         if (dy < y)
                         {
+                            // 左上角
                             Canvas.SetLeft(rect, dx);
                             Canvas.SetTop(rect, dy);
                         }
                         else
                         {
+                            // 左下角
                             Canvas.SetLeft(rect, dx);
                             Canvas.SetTop(rect, y);
                         }
-                       
+
                         break;
                     case false:
                         if (dy > y)
                         {
+                            // 右上角
                             Canvas.SetLeft(rect, x);
                             Canvas.SetTop(rect, y);
                         }
                         else
                         {
+                            // 右下角
                             Canvas.SetLeft(rect, x);
                             Canvas.SetTop(rect, dy);
                         }
-                      
+
                         break;
-                }
-                if (dx < x)
-                {
-
-                }
-                else if (dx > x)
-                {
-
                 }
 
                 CaptureCanvas.Children.Clear();
@@ -128,7 +149,7 @@ namespace screenshot
                 }
             }
         }
-
+        
         private void CaptureScreen(double x, double y, double width, double height)
         {
             int ix = Convert.ToInt32(x);
